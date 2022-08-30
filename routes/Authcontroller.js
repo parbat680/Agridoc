@@ -1,15 +1,18 @@
 const { json } = require('express');
 const express= require('express')
-const user= require('./models/usermodel')
+const user= require('../models/usermodel')
 const router= express.Router()
 const bcrypt= require('bcrypt')
+const {verify}= require('../middleware/jwt_token')
 const jwt= require('jsonwebtoken')
 require('dotenv').config()
+
+
 router.get('',(req,res)=> {
     res.send('/api called success');
 })
 
-router.get('/get',async (req,res)=> {
+router.get('/get',verify,async (req,res)=> {
     try {
         const data= await user.find();
         res.status(200).send(data);
