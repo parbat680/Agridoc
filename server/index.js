@@ -3,11 +3,15 @@ require ('dotenv').config()
 const mongo_url= process.env.DATABASE_URL;
 const mongoose= require('mongoose')
 const express= require('express')
-const routes= require('./routes/Authcontroller')
+const auth_routes= require('./routes/Authcontroller')
+const category_routes= require('./routes/category')
+const product_routes= require('./routes/product')
 
 const app= express()
 app.use(express.json())
-app.use('/user',routes);
+app.use('/user',auth_routes);
+app.use('/category',category_routes)
+app.use('/product',product_routes)
 
 mongoose.connect(mongo_url)
 const database= mongoose.connection;

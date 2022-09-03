@@ -14,7 +14,8 @@ router.get('',(req,res)=> {
 
 router.get('/get',verify,async (req,res)=> {
     try {
-        const data= await user.find();
+        const data= await user.findById(req.id);
+        
         res.status(200).send(data);
 
     } catch (error) {
@@ -22,14 +23,7 @@ router.get('/get',verify,async (req,res)=> {
     }
 })
 
-router.get('/get/:id', async (req,res)=> {
-    try {
-        const data = await user.findById(req.params.id);
-        res.status(200).send(data)
-    } catch (error) {
-        
-    }
-})
+
 
 router.patch('/patch/:id',async (req,res)=> {
     try {
@@ -46,7 +40,7 @@ router.patch('/patch/:id',async (req,res)=> {
     }
 })
 
-router.post('/add',async (req,res) =>  {
+router.post('/register',async (req,res) =>  {
     var salt =await bcrypt.genSaltSync(10);
     req.body.password=await  bcrypt.hash(req.body.password,salt)
     
@@ -74,7 +68,7 @@ router.post('/add',async (req,res) =>  {
     }
 })
 
-router.delete('/delete/:id', async (req,res)=> {
+router.delete('/delete/:id',verify, async (req,res)=> {
     try {
         const id = req.params.id
         const result= await user.findByIdAndDelete(id) 
@@ -82,6 +76,31 @@ router.delete('/delete/:id', async (req,res)=> {
     } catch (error) {
         res.status(400).send('User not deleted')
     }
+})
+
+router.post('/login',async(req,res)=> {
+    
+    user.findOne({phone:req.body.phone},async(err,user)=> {
+        if (err) res.status(500).send(err);
+        
+        var validpass= await bcrypt.compare(req.body.password,user.password)
+        if (validpass){
+        var token= jwt.sign({id: user._id},process.env.JWT_SECRET,{
+            expiresIn: 86400,
+        });
+            res.status(200).send(
+                {
+                message:'login sucessfully',
+                token: token,
+                user: user
+                }
+            )
+        }
+        else{
+        res.status(401).send({message:'invalid credentials'})
+        }
+
+    })
 })
 
 module.exports = router;

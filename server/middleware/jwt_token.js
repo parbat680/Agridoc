@@ -13,9 +13,12 @@ exports.verify= function(req,res,next){
     try {
         
         payload= jwt.verify(token,process.env.JWT_SECRET);
+        
+        req.id= payload.id;
         next();
 
     } catch (error) {
         res.status(500).send({message: 'Error occured please try again later.'})
     }
 }
+

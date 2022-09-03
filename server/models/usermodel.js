@@ -7,6 +7,7 @@ const model= new mongoose.Schema({
     },
     phone :{
         required : true,
+        unique:true,
         type: String
     },
     password : {
