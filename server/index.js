@@ -13,6 +13,9 @@ app.use('/user',auth_routes);
 app.use('/category',category_routes)
 app.use('/product',product_routes)
 
+app.get('',(req,res)=> {
+    res.send("Welcome to agridoc")
+})
 mongoose.connect(mongo_url)
 const database= mongoose.connection;
 
