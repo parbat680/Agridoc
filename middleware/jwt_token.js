@@ -18,7 +18,7 @@ exports.verify= function(req,res,next){
         next();
 
     } catch (error) {
-        res.status(500).send({message: 'Error occured please try again later.'})
+        res.status(401).send({message: 'Token Not valid'})
     }
 }
 

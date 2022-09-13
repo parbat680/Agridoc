@@ -26,7 +26,21 @@ const model= new mongoose.Schema({
         type : String,
         default : null,
     },
-
+    orders :[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'order',
+            default : null, 
+        }
+    ],
+    cart : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'product',
+            default : null,
+        }
+    ]
+    
 });
 
 module.exports= mongoose.model('user',model);
