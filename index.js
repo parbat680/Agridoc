@@ -18,6 +18,8 @@ app.use('/order',order_routes)
 app.get('',(req,res)=> {
     res.send("Welcome to agridoc")
 })
+
+console.log(mongo_url);
 mongoose.connect(mongo_url)
 const database= mongoose.connection;
 

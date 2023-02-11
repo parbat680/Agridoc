@@ -10,7 +10,7 @@ const { reset } = require('nodemon');
 
 
 
-router.use(verify)
+// router.use(verify)
 
 router.get('/get',async (req,res)=> {
     try {

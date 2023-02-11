@@ -3,7 +3,7 @@ const category = require('../models/category')
 var router = express.Router();
 const { verify } = require('../middleware/jwt_token')
 
-router.use(verify)
+// router.use(verify)
 
 router.post('/add', async (req, res) => {
     var data = category({

@@ -6,7 +6,7 @@ const { verify } = require('../middleware/jwt_token');
 const { response } = require('express');
 
 
-router.use(verify)
+// router.use(verify)
 
 router.get('/get',async (req,res)=>{
    try{
