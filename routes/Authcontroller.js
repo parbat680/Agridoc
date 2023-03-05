@@ -88,7 +88,7 @@ router.post('/login',async(req,res)=> {
         var token= jwt.sign({id: user._id},process.env.JWT_SECRET,{
             expiresIn: 86400,
         });
-            res.status(200).send(
+            return res.status(200).send(
                 {
                 message:'login sucessfully',
                 token: token,
@@ -97,7 +97,7 @@ router.post('/login',async(req,res)=> {
             )
         }
         else{
-        res.status(401).send({message:'invalid credentials'})
+        return res.status(401).send({message:'invalid credentials'})
         }
 
     })
