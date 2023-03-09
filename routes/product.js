@@ -10,7 +10,7 @@ const {ObjectId} = require('mongodb');
 
 // router.use(verify)
 
-router.get('/get',async (req,res)=>{
+router.get('/get/:id',async (req,res)=>{
    try{
 
     var s=ObjectId('636168e2bff7e5c064790323');
@@ -38,11 +38,26 @@ router.get('/get',async (req,res)=>{
                   },
                 },
               },
+            
             {
-                $project:{
-                    afav:0,
-                }
+              $lookup :{
+                from: 'categories',
+                localField: 'category',
+                foreignField: '_id',
+                as: 'cat',
             }
+          },
+          {
+            $match: {
+              'cat.name': req.params.id,
+            }
+          },
+          {
+            $project:{
+                afav:0,
+                cat:0,
+            }
+        },
             
             
         ])
@@ -77,7 +92,7 @@ router.post('/add',upload.array('images'),async (req,res)=> {
         })
         console.log(data)
         for(i=0;i<req.files.length;i++){
-          data.images.push('http://localhost:3000/api/'+req.files[i].filename);
+          data.images.push('http://agridoc.ap-south-1.elasticbeanstalk.com/api/'+req.files[i].filename);
       }
 
       console.log(data)
