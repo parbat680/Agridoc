@@ -7,9 +7,9 @@ const { verify } = require('../middleware/jwt_token')
 
 router.post('/add', async (req, res) => {
     var data = category({
-        category_name: req.body.category_name,
-        category_description: req.body.category_description,
-        category_avatar: req.body.category_avatar
+        name: req.body.name,
+        description: req.body.description,
+        
     })
 
     try {
@@ -20,6 +20,7 @@ router.post('/add', async (req, res) => {
         else res.status(200).send({ category: result })
 
     } catch (error) {
+        console.log(error)
         res.status(500).send({ message: error })
     }
 })

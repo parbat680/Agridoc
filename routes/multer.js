@@ -77,6 +77,7 @@ router.get('/api/files', (req, res) => {
   
   
   router.get('/:filename', (req, res) => {
+    console.log("in")
     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
       // Check if file
       if (!file || file.length === 0) {
@@ -84,10 +85,11 @@ router.get('/api/files', (req, res) => {
           err: 'No file exists'
         });
       }
-  
+      console.log(file);
       // Check if image
       if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
         // Read output to browser
+        console.log("streamed")
         const readStream = gridfsBucket.openDownloadStream(file._id);
         readStream.pipe(res);
       } else {

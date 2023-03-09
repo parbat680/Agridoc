@@ -11,7 +11,7 @@ const model= mongoose.Schema({
         type: Number,
         required: true
     },
-    buyerPhone : {
+    buyerEmail : {
         required : true,
         type: String
     },
