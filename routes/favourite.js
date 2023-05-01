@@ -4,11 +4,15 @@ const favourite= require('../models/favourites')
 const { verify } = require('../middleware/jwt_token');
 const { response } = require('express');
 
+router.use(verify)
+
 router.post('/fav',async (req,res)=> {
     try {
+
+        
         var fav= new favourite({
             product_id : Object(req.body.pid),
-            user_id: Object(req.body.uid),
+            user_id: Object(req.id),
         })
     
         var result=await fav.save();
@@ -24,7 +28,7 @@ router.post('/get',async (req,res)=> {
     try {
        
     
-        var result=await favourite.find({user_id: req.body.uid}).populate('product_id');
+        var result=await favourite.find({user_id: req.id}).populate('product_id');
         return res.send({
             result
         })
@@ -36,7 +40,7 @@ router.post('/get',async (req,res)=> {
 router.post('/delete',async (req,res)=> {
     try {
         
-        var result=await favourite.deleteMany({$and : [{product_id:  req.body.pid},{user_id:  req.body.uid}]});
+        var result=await favourite.deleteMany({$and : [{product_id:  req.body.pid},{user_id:  req.id}]});
         return res.send({
             "data": result,
         })

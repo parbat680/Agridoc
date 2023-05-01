@@ -10,6 +10,8 @@ const order_routes= require('./routes/orders')
 const fav_routes= require('./routes/favourite')
 const cart = require('./routes/cart')
 const {router}= require('./routes/multer');
+const delivery_router= require('./routes/delivery')
+const predict= require('./routes/predict')
 
 const app= express()
 app.use(express.json())
@@ -20,6 +22,8 @@ app.use('/order',order_routes)
 app.use('/f',fav_routes)
 app.use('/cart',cart)
 app.use('/api',router)
+app.use('/delivery',delivery_router)
+app.use('/predict',predict)
 
 app.get('',(req,res)=> {
     res.send("Welcome to agridoc")

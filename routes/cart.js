@@ -5,7 +5,7 @@ const product = require('../models/product');
 const cart= require('../models/cart')
 const order= require('../models/orders')
 
-// router.use(verify)
+router.use(verify)
 
 router.post('/add',async(req,res)=> {
     try {
@@ -17,7 +17,7 @@ router.post('/add',async(req,res)=> {
         try {
             
         data= await cart.findOneAndUpdate( {
-            buyerEmail: req.body.userEmail,
+            _id: req.id,
             product: req.body.product,
           },
           {
@@ -55,8 +55,8 @@ router.post('/add',async(req,res)=> {
 router.post('/get',async(req,res)=> {
 
     try {
-        
-        var data=await cart.find({buyerEmail: req.body.userEmail}).populate({path: "product", select: "-quantity",populate:{
+        console.log("here")
+        var data=await cart.find({_id: req.id}).populate({path: "product", select: "-quantity",populate:{
             path: 'category',
         }});
 

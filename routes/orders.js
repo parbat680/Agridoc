@@ -7,6 +7,7 @@ const { validate } = require('../models/usermodel');
 const product = require('../models/product');
 const order= require('../models/orders');
 const { reset } = require('nodemon');
+const {deliveryDetails} = require('../controllers/checkout')
 
 
 
@@ -14,7 +15,7 @@ const { reset } = require('nodemon');
 
 router.get('/get',async (req,res)=> {
     try {
-        var data = await order.find({buyerPhone: req.body.phone}).populate({path: 'product',populate:{
+        var data = await order.find({buyerPhone: req.body.email}).populate({path: 'product',populate:{
             path: 'category',
         }})
 
@@ -28,8 +29,8 @@ router.post('/add',async(req,res)=> {
     try {
         var prod=await product.findById(req.body.product)
         if(!prod){
-            res.status(400).send({message: 'cannot find product'})
-            return;
+            return res.status(400).send({message: 'Product cannot be purchased'})
+            
         }
         var data=new order({
             product: prod._id,
@@ -37,12 +38,27 @@ router.post('/add',async(req,res)=> {
             buyerPhone: req.body.phone,
         })
 
-        var saved= await data.save();
+        await data.save();
 
-        res.status(200).send(saved);
+        res.status(200).send({message: "Order placed Successfully!"});
 
     } catch (error) {
-        res.status(500).send({message: 'Error Occured'})
+        res.status(500).send({message: 'Something went wrong'})
+    }
+})
+
+router.post('/delivery/details', async (req,res)=> {
+
+    try {
+
+        await deliveryDetails(req)
+        return res.send({message: "Delivery details saved"})
+
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({message: "Something went wrong"})
+
     }
 })
 

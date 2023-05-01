@@ -43,11 +43,11 @@ router.patch('/patch/:id',async (req,res)=> {
 router.post('/register',async (req,res) =>  {
     var salt =await bcrypt.genSaltSync(10);
     req.body.password=await  bcrypt.hash(req.body.password,salt)
-    
+    console.log(req.body)
     const data= new user({
         name: req.body.name,
         password : req.body.password,
-        phone : req.body.phone,
+        email : req.body.email,
         created_on : Date().toString(),
 
     });
@@ -64,7 +64,8 @@ router.post('/register',async (req,res) =>  {
         });
 
     } catch (error) {
-        res.status(400).json({message: 'Cannot create user'})
+        console.log(error);
+        res.status(401).json({message: 'Cannot create user'})
     }
 })
 
@@ -80,8 +81,8 @@ router.delete('/delete/:id',verify, async (req,res)=> {
 
 router.post('/login',async(req,res)=> {
     
-    user.findOne({phone:req.body.phone},async(err,user)=> {
-        if (err) res.status(500).send(err);
+    user.findOne({email:req.body.email},async(err,user)=> {
+        if (user==null) return res.status(401).send(err);
         
         var validpass= await bcrypt.compare(req.body.password,user.password)
         if (validpass){

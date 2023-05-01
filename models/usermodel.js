@@ -5,7 +5,7 @@ const model= new mongoose.Schema({
         required: true,
         type : String
     },
-    phone :{
+    email :{
         required : true,
         unique:true,
         type: String

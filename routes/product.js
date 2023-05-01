@@ -8,12 +8,12 @@ const { response } = require('express');
 const {ObjectId} = require('mongodb'); 
 
 
-// router.use(verify)
+router.use(verify)
 
 router.get('/get/:id',async (req,res)=>{
    try{
 
-    var s=ObjectId('636168e2bff7e5c064790323');
+    var s=ObjectId(req.id);
       
     
         var data= await product.aggregate([

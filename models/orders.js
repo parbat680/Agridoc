@@ -15,6 +15,11 @@ const model= mongoose.Schema({
         required : true,
         type: String
     },
+    delivery_info: {
+        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'delivery',
+    }
 
 
 })
