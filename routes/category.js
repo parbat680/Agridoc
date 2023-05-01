@@ -15,7 +15,7 @@ router.post('/add', async (req, res) => {
     try {
         var result = await data.save();
         if (!result)
-            res.status(400).send({ message: 'category not added' })
+            res.status(400).send({ message: 'Category not added' })
 
         else res.status(200).send({ category: result })
 
@@ -31,7 +31,7 @@ router.get('/get', async (req, res) => {
 
         res.status(200).send(data);
     } catch (error) {
-        res.status(400).send({ message: 'Error Occured', error: error })
+        res.status(400).send({ message: 'Error Occured!', error: error })
     }
 
 })

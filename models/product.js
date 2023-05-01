@@ -44,7 +44,5 @@ const product= mongoose.Schema({
 
     }]
 
-
 });
-
 module.exports= mongoose.model('product',product);

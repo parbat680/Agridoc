@@ -21,7 +21,7 @@ router.get('/get',async (req,res)=> {
 
     res.status(200).send(data)
     } catch (error) {
-        res.status(500).send({message: 'Error Occured'})
+        res.status(500).send({message: 'Error!'})
     }
 })
 
@@ -29,7 +29,7 @@ router.post('/add',async(req,res)=> {
     try {
         var prod=await product.findById(req.body.product)
         if(!prod){
-            return res.status(400).send({message: 'Product cannot be purchased'})
+            return res.status(400).send({message: 'Product cannot be purchased!'})
             
         }
         var data=new order({
@@ -47,7 +47,7 @@ router.post('/add',async(req,res)=> {
     }
 })
 
-router.post('/delivery/details', async (req,res)=> {
+router.post('/orders/delivery/details', async (req,res)=> {
 
     try {
 

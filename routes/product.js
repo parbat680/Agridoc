@@ -65,11 +65,11 @@ router.get('/get/:id',async (req,res)=>{
         await category.populate(data, {path: "category"});
         if(data)
             res.status(200).send(data)
-        else res.status(400).send({message:"Error Occured",error:error})
+        else res.status(400).send({message:"Error Occured!",error:error})
    }
     catch (error) {
         console.log(error)
-        res.status(500).send({message: "Error Occured",error:error})
+        res.status(500).send({message: "Error Occured!",error:error})
     }
 })
 
@@ -78,7 +78,7 @@ router.post('/add',upload.array('images'),async (req,res)=> {
     try {
         var cat= await category.findOne({name:req.body.category})
         if(!cat){
-            res.status(400).send({message: "Error Occured"})
+            res.status(400).send({message: "Error Occured!"})
             return;
         }
 
@@ -101,11 +101,11 @@ router.post('/add',upload.array('images'),async (req,res)=> {
         if(result)
             res.status(200).send(result)
         
-        else res.status(400).send({message: "Error Occured"})
+        else res.status(400).send({message: "Error Occured!"})
         
 
     } catch (error) {
-        res.status(500).send({message: "Error Occured",error:error})
+        res.status(500).send({message: "Error Occured!",error:error})
     }
 })
 

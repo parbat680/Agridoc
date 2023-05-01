@@ -59,13 +59,13 @@ router.post('/register',async (req,res) =>  {
         await data.save();
         
         res.status(200).json({
-            message : 'user created successfully',
+            message : 'Registration successful',
             token : token
         });
 
     } catch (error) {
         console.log(error);
-        res.status(401).json({message: 'Cannot create user'})
+        res.status(401).json({message: 'User cannot be created'})
     }
 })
 
@@ -91,7 +91,7 @@ router.post('/login',async(req,res)=> {
         });
             return res.status(200).send(
                 {
-                message:'login sucessfully',
+                message:'login sucessful',
                 token: token,
                 user: user
                 }

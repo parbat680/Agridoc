@@ -40,14 +40,14 @@ router.post('/add',async(req,res)=> {
         
 
         if(data==undefined){
-            return res.status(400).send({message: 'Cannot add product to cart'})
+            return res.status(400).send({message: 'Product cannot be added'})
         }
 
         
 
     } catch (error) {
         console.log(error)
-        return res.send({message: 'Error Occured'})
+        return res.send({message: 'Error Occured!'})
     }
     return res.send({messsage: data})
 })
@@ -110,7 +110,7 @@ router.post('/checkout', async (req,res)=> {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).send({message:"Error Occured"})
+        return res.status(500).send({message:"Error Occured!"})
     }
 })
 
